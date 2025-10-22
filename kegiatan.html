@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Benefit & Payment</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      @font-face {
+        font-family: "Clash Display Variable";
+        src: url("ClashDisplay-Variable.ttf") format("truetype");
+      }
+
+      body {
+        font-family: "Clash Display Variable", "inter", "poppins", sans-serif;
+        background-color: #ffffff;
+        /* Set background putih untuk body */
+      }
+
+      /* ================================== */
+      /* ==== NAVIGASI & SIDEBAR (SAMA) ==== */
+      /* ================================== */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 15px 90px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      nav.scrolled {
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 2px 30px rgba(0, 0, 0, 0.15);
+        padding: 10px 90px;
+      }
+      .logo img {
+        height: 50px;
+        transition: all 0.3s ease;
+      }
+      nav.scrolled .logo img {
+        height: 40px;
+      }
+      .sectionNavbar {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-decoration: none;
+        color: #333;
+      }
+      .nav-item:hover {
+        background-color: #f0f0f0;
+      }
+      .nav-item.active {
+        background-color: #4a5d23;
+        color: white;
+      }
+      .nav-item p {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .nav-icon {
+        width: 20px;
+        height: 20px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: none;
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-size: contain;
+      }
+      .home-icon {
+        mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>');
+      }
+      .teknis-icon {
+        mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>');
+      }
+      .naskah-icon {
+        mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>');
+      }
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        width: 30px;
+        height: 24px;
+        justify-content: space-between;
+        z-index: 1002;
+      }
+      .hamburger span {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background-color: #333;
+        border-radius: 1px;
+        transition: all 0.3s ease;
+      }
+      .hamburger.active span:nth-child(1) {
+        transform: translateY(10.5px) rotate(45deg);
+      }
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active span:nth-child(3) {
+        transform: translateY(-10.5px) rotate(-45deg);
+      }
+      .sidebar {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        width: 300px;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: -2px 0 20px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease;
+        z-index: 1001;
+        padding: 80px 30px 30px;
+      }
+      .sidebar.active {
+        right: 0;
+      }
+      .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        font-size: 35px;
+        font-weight: bold;
+        color: #333;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+      .close-btn:hover {
+        transform: rotate(90deg) scale(1.1);
+      }
+      .sidebar .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 20px;
+        margin-bottom: 10px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-decoration: none;
+        color: #333;
+        font-size: 16px;
+      }
+      .sidebar .nav-item:hover {
+        background-color: #f0f0f0;
+      }
+      .sidebar .nav-item.active {
+        background-color: #4a5d23;
+        color: white;
+      }
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      .overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* ================================== */
+      /* ==== BAGIAN HERO (DESKTOP BARU) ==== */
+      /* ================================== */
+      .hero {
+        min-height: 90vh;
+        background-color: #1d6c5c;
+        /* Warna hijau tua dari desain */
+        display: flex;
+        justify-content: space-between;
+        /* Diubah dari center */
+        align-items: center;
+        padding: 100px 90px 50px 90px;
+        /* Padding disesuaikan */
+        overflow: hidden;
+      }
+      .title {
+        flex: 1;
+        /* Mengambil ruang yg tersedia */
+        flex-basis: 40%;
+        /* Mulai dari 40% lebar */
+        text-align: center;
+        color: #e1d5b5;
+        /* Teks putih sesuai desain */
+        padding-left: 0;
+        /* Hapus padding lama */
+      }
+      .title h3 {
+        font-size: 10rem;
+        text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+        /* Shadow lebih halus */
+        line-height: 1.1;
+      }
+      .BAimage {
+        flex: 1;
+        /* Mengambil ruang yg tersedia */
+        flex-basis: 50%;
+        /* Mulai dari 50% lebar */
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 500px;
+        /* Beri tinggi minimum */
+      }
+      .gambar {
+        /* Ilustrasi stetoskop, dll */
+        position: absolute;
+        width: 100%;
+        max-width: 870px;
+        /* Sesuaikan ukuran gambar */
+        height: auto;
+        z-index: 2;
+        /* Di atas lingkaran */
+        /* Hapus transform lama */
+        top: 50%;
+        left: 50%;
+        transform: translate(-35%, -33%);
+      }
+      .circle {
+        /* Lingkaran putih di belakang */
+        position: absolute;
+        width: 800px;
+        /* Sesuaikan ukuran lingkaran */
+        height: 800px;
+        background-color: #e1d5b5;
+        /* Warna putih polos */
+        border-radius: 50%;
+        z-index: 1;
+        /* Di belakang gambar */
+        /* Hapus transform lama */
+        top: 50%;
+        left: 50%;
+        transform: translate(-30%, -10%);
+      }
+
+      /* ========================================= */
+      /* ==== BAGIAN BENEFIT & EMAIL (BARU) ==== */
+      /* ========================================= */
+      .info-section {
+        padding: 4.5rem 90px;
+        /* Padding atas-bawah dan kiri-kanan */
+        background-color: #ffffff;
+      }
+      .info-container {
+        display: flex;
+        gap: 2.5rem;
+        /* Jarak antar kartu */
+        justify-content: center;
+        align-items: stretch;
+        /* Membuat tinggi kartu sama */
+        max-width: 1000px;
+        /* Batas lebar max */
+        margin: 0 auto;
+      }
+      .info-card {
+        flex: 1;
+        background-color: #1d6c5c;
+        /* Warna hijau tua */
+        color: #e1d5b5;
+        padding: 2.5rem;
+        border-radius: 15px;
+        /* Sesuai desain */
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        min-width: 300px;
+      }
+      .card-benefit h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+      }
+      .card-benefit ol {
+        padding-left: 20px;
+        /* Indentasi untuk nomor */
+        font-family: "inter", "poppins", sans-serif;
+        /* Font lebih mudah dibaca */
+        font-size: 1.25rem;
+        line-height: 1.8;
+      }
+      .card-benefit ol li {
+        margin-bottom: 0.5rem;
+      }
+      .card-email {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        /* Pusatkan konten vertikal */
+      }
+      .email-icon {
+        width: 100%;
+        max-width: 180px;
+        /* Sesuaikan ukuran ikon */
+        height: auto;
+        margin-bottom: 1rem;
+      }
+      .card-email h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      .card-email p {
+        font-size: 1.125rem;
+        font-family: "inter", "poppins", sans-serif;
+        font-weight: 500;
+        word-break: break-all;
+        /* Agar email tidak overflow */
+      }
+
+      /* ===================================== */
+      /* ==== BAGIAN PAYMENT (DISESUAIKAN) ==== */
+      /* ===================================== */
+      .payment-container {
+        width: 100%;
+        max-width: 100vw;
+        background-color: #1d6c5c;
+        /* Warna hijau tua sesuai desain */
+        color: #e1d5b5;
+        /* Teks putih sesuai desain */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        padding: 4.5rem 90px;
+        /* Padding disamakan */
+      }
+      .illustration-column {
+        width: 50%;
+        padding: 0 3rem 0 0;
+        /* Beri padding kanan */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .illustration-column img {
+        margin: 0;
+        /* Hapus margin-left lama */
+        width: 100%;
+        max-width: 400px;
+        /* Batasi lebar gambar */
+        height: auto;
+      }
+      .details-column {
+        width: 50%;
+        padding: 0 0 0 3rem;
+        /* Beri padding kiri */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2.5rem;
+        /* Jarak antar blok payment */
+      }
+      .details-column h2 {
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        /* Sesuai desain */
+      }
+      .details-column p {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        margin-bottom: 0.5rem;
+        font-family: "inter", "poppins", sans-serif;
+        /* Font lebih mudah dibaca */
+      }
+      .details-column .font-semibold {
+        font-weight: 600;
+      }
+      /* ================================================= */
+      /* ==== RESPONSIVE (LAPTOP 1440px - 1025px) ==== */
+      /* ================================================= */
+      @media (max-width: 1440px) and (min-width: 1025px) {
+        /* Kurangi padding horizontal di semua bagian utama
+    agar konten tidak terlalu mepet ke tepi.
+  */
+        nav {
+          padding: 15px 60px;
+        }
+        nav.scrolled {
+          padding: 10px 60px;
+        }
+        .hero {
+          padding: 100px 60px 50px 60px;
+          min-height: 70vh;
+        }
+        .info-section {
+          padding: 4rem 60px; /* Sedikit kurangi padding vertikal & horizontal */
+        }
+        .payment-container {
+          padding: 4rem 60px; /* Sedikit kurangi padding vertikal & horizontal */
+        }
+
+        /* --- Penyesuaian Bagian Hero --- */
+
+        /* Kecilkan font judul agar tidak terlalu dominan */
+        .title h3 {
+          font-size: 8rem; /* Turun dari 10rem */
+        }
+
+        /* Kecilkan gambar dan lingkaran agar proporsional */
+        .gambar {
+          max-width: 620px; /* Turun dari 870px */
+          transform: translate(-55%, -5%);
+          /* Nilai transform sengaja tidak diubah 
+      agar offset-nya tetap terjaga 
+    */
+        }
+        .circle {
+          width: 600px; /* Turun dari 800px */
+          height: 600px;
+          transform: translate(-45%, 0%);
+          /* Nilai transform sengaja tidak diubah 
+      agar offset-nya tetap terjaga 
+    */
+        }
+
+        /* Bagian Benefit & Payment lain sudah responsif karena max-width */
+      }
+
+      /* ================================================= */
+      /* ========= KODE RESPONSIVE YANG DIPERBAIKI ========= */
+      /* ================================================= */
+
+      /* TABLET (max-width: 1024px) */
+      @media (max-width: 1024px) {
+        nav {
+          padding: 12px clamp(2rem, 5vw, 4rem);
+        }
+        .hamburger {
+          display: flex;
+        }
+        .sectionNavbar {
+          display: none !important;
+        }
+
+        /* --- Hero Responsive --- */
+        .hero {
+          flex-direction: column;
+          padding: 120px 2rem 0;
+          /* Hapus padding bawah */
+          text-align: center;
+          justify-content: flex-start;
+          min-height: 60vh;
+        }
+        .title {
+          padding: 0;
+          margin-bottom: 2rem;
+          width: 100%;
+          text-align: center;
+          /* Tengahkan teks */
+          flex-basis: auto;
+          /* Hapus basis */
+        }
+        .title h3 {
+          font-size: clamp(4rem, 10vw, 5.5rem);
+          /* Ukuran font responsif */
+        }
+        .BAimage {
+          width: 100%;
+          min-height: 50vh;
+          /* Beri ruang minimum */
+          display: flex;
+          justify-content: center;
+          align-items: flex-end;
+          /* Dorong gambar ke bawah */
+          position: relative;
+          flex-basis: auto;
+        }
+        .gambar {
+          position: relative;
+          /* Ubah jadi relative */
+          z-index: 2;
+          height: auto;
+          max-height: 45vh;
+          /* Batasi tinggi */
+          width: 80%;
+          max-width: 850px;
+          transform: translateY(5%);
+
+          top: auto;
+          left: auto;
+          margin-bottom: 2vh;
+          /* Jarak dari dasar circle */
+        }
+        .circle {
+          position: absolute;
+          z-index: 1;
+          width: 80vw;
+          height: 80vw;
+          max-width: 500px;
+          max-height: 500px;
+          left: 50%;
+          transform: translateX(-50%);
+          /* Tengahkan horizontal */
+          bottom: -20%;
+          /* Dorong lingkaran ke bawah */
+          top: auto;
+        }
+
+        /* --- Benefit & Email Responsive --- */
+        .info-section {
+          padding: 2.5rem 2rem;
+        }
+        .info-container {
+          flex-direction: column;
+          /* Susun ke bawah */
+          align-items: center;
+        }
+        .info-card {
+          max-width: 100%;
+          width: 100%;
+        }
+
+        /* --- Payment Responsive --- */
+        .payment-container {
+          flex-direction: column;
+          /* Susun ke bawah */
+          padding: 2.5rem 2rem;
+        }
+        .illustration-column,
+        .details-column {
+          width: 100%;
+          padding: 0;
+          /* Hapus padding */
+        }
+        .illustration-column {
+          margin-bottom: 2.5rem;
+          /* Jarak ke teks */
+        }
+        .illustration-column img {
+          margin: 0 auto;
+          display: block;
+          height: clamp(180px, 40vw, 240px);
+          /* Ukuran gambar responsif */
+          width: auto;
+        }
+      }
+
+      /* MOBILE (max-width: 768px) */
+      @media (max-width: 768px) {
+        .hero {
+          min-height: 80vh;
+          padding: 100px 1.25rem 0;
+        }
+        .title h3 {
+          font-size: clamp(3rem, 12vw, 4.5rem);
+        }
+        .gambar {
+          max-height: 35vh;
+          /* Kecilkan lagi di HP */
+          margin-bottom: 3vh;
+        }
+        .circle {
+          width: 90vw;
+          height: 90vw;
+          bottom: -50%;
+        }
+
+        /* --- Benefit & Email Mobile --- */
+        .info-section {
+          padding: 2.5rem 1.25rem;
+        }
+        .info-card {
+          padding: 1.5rem;
+        }
+        .info-card h2 {
+          font-size: 2rem;
+        }
+        .card-benefit ol li {
+          font-size: 1.125rem;
+        }
+        .card-email p {
+          font-size: 1.125rem;
+        }
+
+        /* --- Payment Mobile --- */
+        .payment-container {
+          padding: 2.5rem 1.25rem;
+        }
+        .details-column h2 {
+          font-size: 1.5rem;
+        }
+        .details-column p {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="navbar">
+      <div class="logo">
+        <img src="images/logo.png" alt="Logo Seminar" />
+      </div>
+      <div class="sectionNavbar">
+        <a href="index.html" class="nav-item">
+          <div class="nav-icon home-icon"></div>
+          <p>Home</p>
+        </a>
+        <a href="kegiatan.html" class="nav-item active">
+          <div class="nav-icon teknis-icon"></div>
+          <p>Teknis Kegiatan</p>
+        </a>
+        <a href="naskah.html" class="nav-item">
+          <div class="nav-icon naskah-icon"></div>
+          <p>Kirim Naskah</p>
+        </a>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+    <div class="overlay" id="overlay"></div>
+    <div class="sidebar" id="sidebar">
+      <div class="close-btn" id="close-btn">&times;</div>
+      <a href="index.html" class="nav-item">
+        <div class="nav-icon home-icon"></div>
+        <p>Home</p>
+      </a>
+      <a href="kegiatan.html" class="nav-item active">
+        <div class="nav-icon teknis-icon"></div>
+        <p>Teknis Kegiatan</p>
+      </a>
+      <a href="naskah.html" class="nav-item">
+        <div class="nav-icon naskah-icon"></div>
+        <p>Kirim Naskah</p>
+      </a>
+    </div>
+
+    <div class="hero">
+      <div class="title">
+        <h3>Benefit &<br />Payment</h3>
+      </div>
+      <div class="BAimage">
+        <img src="images/kegiatan.png" alt="Ilustrasi Medis" class="gambar" />
+        <div class="circle"></div>
+      </div>
+    </div>
+
+    <section class="info-section">
+      <div class="info-container">
+        <div class="info-card card-benefit">
+          <h2>Benefit</h2>
+          <ol>
+            <li>3 SKP (On Going)</li>
+            <li>Bahan Materi Seminar</li>
+            <li>Ilmu dan Relasi</li>
+            <li>Hadiah total 1,5 Juta bagi 6 pemenang</li>
+          </ol>
+        </div>
+        <div class="info-card card-email">
+          <img
+            src="images/email.png"
+            alt="Ilustrasi Email"
+            class="email-icon"
+          />
+          <h2>Email</h2>
+          <p>semnas.ners30@gmail.com</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="payment-container">
+      <div class="illustration-column">
+        <img src="images/pembayaran.png" alt="Ilustrasi Pembayaran Online" />
+      </div>
+
+      <div class="details-column">
+        <div>
+          <h2>Payment seminar</h2>
+          <p>Contact Person Seminar Nasional</p>
+          <p>085334749790 (Nuriyatul)</p>
+        </div>
+
+        <div>
+          <h2>PAYMENT POSTER EXHIBITION</h2>
+          <p><span class="font-semibold">Bank BNI</span></p>
+          <p>
+            <span class="font-semibold">Nomor Rekening:</span>
+            1885322659 a/n Ayuni Putri Florenza
+          </p>
+          <p style="margin-top: 1rem">
+            <span class="font-semibold">Contact Person Poster :</span>
+          </p>
+          <p>0895372630873 (Heningdyah)</p>
+          <p>085821032711 (Ayuni)</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const navbar = document.getElementById("navbar");
+      let ticking = false;
+
+      function updateNavbarOnScroll() {
+        if (window.scrollY > 30) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+        ticking = false;
+      }
+
+      window.addEventListener("scroll", () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateNavbarOnScroll);
+          ticking = true;
+        }
+      });
+
+      // Hamburger menu functionality
+      const hamburger = document.getElementById("hamburger");
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      const closeBtn = document.getElementById("close-btn");
+
+      function toggleSidebar() {
+        hamburger.classList.toggle("active");
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
+        document.body.style.overflow = sidebar.classList.contains("active")
+          ? "hidden"
+          : "";
+      }
+
+      hamburger.addEventListener("click", toggleSidebar);
+      overlay.addEventListener("click", toggleSidebar);
+      closeBtn.addEventListener("click", toggleSidebar);
+
+      document.querySelectorAll(".sidebar .nav-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          if (sidebar.classList.contains("active")) {
+            toggleSidebar();
+          }
+        });
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1024) {
+          if (sidebar.classList.contains("active")) {
+            sidebar.classList.remove("active");
+            overlay.classList.remove("active");
+            hamburger.classList.remove("active");
+            document.body.style.overflow = "";
+          }
+        }
+      });
+
+      function setActiveNavItem() {
+        const currentPage =
+          window.location.pathname.split("/").pop() || "index.html";
+        const navItems = document.querySelectorAll(".nav-item");
+
+        navItems.forEach((item) => {
+          item.classList.remove("active");
+          const itemHref = item.getAttribute("href");
+          if (itemHref === currentPage) {
+            item.classList.add("active");
+          }
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", setActiveNavItem);
+    </script>
+  </body>
+</html>
