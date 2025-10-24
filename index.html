@@ -10,6 +10,7 @@
         padding: 0;
         box-sizing: border-box;
       }
+
       @font-face {
         font-family: "Clash Display Variable";
         src: url("ClashDisplay-Variable.ttf") format("truetype");
@@ -27,7 +28,8 @@
         width: 30px;
         height: 24px;
         justify-content: space-between;
-        z-index: 1002; /* Pastikan di atas sidebar */
+        z-index: 1002;
+        /* Pastikan di atas sidebar */
       }
 
       .hamburger span {
@@ -81,9 +83,11 @@
         cursor: pointer;
         transition: transform 0.3s ease;
       }
+
       .close-btn:hover {
         transform: rotate(90deg) scale(1.1);
       }
+
       /* === AKHIR DARI CSS BARU === */
 
       .sidebar .nav-item {
@@ -206,6 +210,7 @@
       .home-icon {
         background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>');
       }
+
       .active .home-icon {
         background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>');
       }
@@ -311,7 +316,7 @@
         flex: 1;
         min-height: 30vh;
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-template-rows: auto auto;
         gap: 16px;
         min-width: 0;
@@ -320,20 +325,25 @@
       .btn-1 {
         grid-column: span 1;
       }
+
       .btn-2 {
         grid-column: span 3;
       }
+
       .btn-3 {
         grid-column-start: 5;
       }
+
       .btn-4 {
         grid-row-start: 2;
         grid-column-start: 1;
       }
+
       .btn-5 {
         grid-row-start: 2;
         grid-column-start: 2;
       }
+
       .btn-6 {
         grid-column: 3 / span 3;
         grid-row-start: 2;
@@ -445,6 +455,7 @@
         color: #e1d5b5;
         font-size: clamp(1.1rem, 2.5vw, 1.4rem);
       }
+
       .poster {
         padding: clamp(2rem, 8vw, 5rem);
         height: auto;
@@ -630,11 +641,15 @@
         .btn-outline {
           width: 100%;
         }
+
         .sub-tema-section {
-          padding: 2rem; /* Kurangi padding utama */
+          padding: 2rem;
+          /* Kurangi padding utama */
         }
+
         .sub-tema-container {
-          padding: 2.5rem; /* Kurangi padding di dalam kotak hijau */
+          padding: 2.5rem;
+          /* Kurangi padding di dalam kotak hijau */
         }
 
         .guestStar {
@@ -740,22 +755,33 @@
           width: 100%;
           min-height: auto;
         }
+
         /* === CSS RESPONSIVE SUB-TEMA (MOBILE) === */
         .sub-tema-section {
           padding: 1.5rem;
-          margin: 1rem; /* Samakan jarak margin-nya dengan .seminar-container */
+          margin: 1rem;
+          /* Samakan jarak margin-nya dengan .seminar-container */
         }
+
         .sub-tema-container {
-          padding: 1.5rem; /* Kurangi padding di dalam kotak hijau */
-          border-radius: 16px; /* Samakan radiusnya */
+          padding: 1.5rem;
+          /* Kurangi padding di dalam kotak hijau */
+          border-radius: 16px;
+          /* Samakan radiusnya */
         }
+
         .sub-tema-title {
-          margin-bottom: 1.5rem; /* Kurangi jarak bawah judul */
+          margin-bottom: 1.5rem;
+          /* Kurangi jarak bawah judul */
         }
+
         .sub-tema-list li {
-          line-height: 1.6; /* Atur ulang tinggi baris */
-          padding-left: 1.5rem; /* Kurangi indentasi list */
+          line-height: 1.6;
+          /* Atur ulang tinggi baris */
+          padding-left: 1.5rem;
+          /* Kurangi indentasi list */
         }
+
         /* Kecilkan lingkaran dekoratif */
         .sub-tema-container::before,
         .sub-tema-container::after {
@@ -898,18 +924,24 @@
         /* === CSS RESPONSIVE SUB-TEMA (SMALL MOBILE) === */
         .sub-tema-section {
           padding: 1.25rem;
-          margin: 0.75rem; /* Samakan jarak margin-nya dengan .seminar-container */
+          margin: 0.75rem;
+          /* Samakan jarak margin-nya dengan .seminar-container */
         }
+
         .sub-tema-container {
           padding: 1.25rem;
         }
+
         .sub-tema-title {
           margin-bottom: 1.25rem;
         }
+
         .sub-tema-list li {
-          line-height: 1.7; /* Beri sedikit ruang bernapas */
+          line-height: 1.7;
+          /* Beri sedikit ruang bernapas */
           padding-left: 1.25rem;
         }
+
         .btn-outline {
           padding: 12px 16px;
           font-size: clamp(0.6875rem, 3.5vw, 0.875rem);
@@ -1011,14 +1043,18 @@
           padding: 1rem;
           margin: 0.5rem;
         }
+
         /* === CSS RESPONSIVE SUB-TEMA (VERY SMALL MOBILE) === */
         .sub-tema-section {
           padding: 1rem;
-          margin: 0.5rem; /* Samakan jarak margin-nya dengan .seminar-container */
+          margin: 0.5rem;
+          /* Samakan jarak margin-nya dengan .seminar-container */
         }
+
         .sub-tema-container {
           padding: 1rem;
         }
+
         /* Sembunyikan lingkaran dekoratif di layar sangat kecil */
         .sub-tema-container::before,
         .sub-tema-container::after {
@@ -1070,6 +1106,7 @@
       }
     </style>
   </head>
+
   <body>
     <nav id="navbar">
       <div class="logo">
@@ -1139,22 +1176,24 @@
       </div>
       <div class="seminar-buttons">
         <a
-          href="https://docs.google.com/document/d/1KnYB8qKqVrQcR1fW4c-qdpokXd1YucD0/edit?usp=drivesdk&ouid=115501770071353099520&rtpof=true&sd=true "
-          class="btn-outline btn-1"
-          >Manuscript Template</a
+          href="http://bit.ly/PendaftaranSemnasMahasiswa"
+          class="btn-outline btn-2"
         >
-        <a href="https://forms.gle/BS53LqJegQin4AF19 " class="btn-outline btn-2"
-          >Pengumpulan Power Point Call for Papers</a
+          Pendaftaran Seminar Nasional untuk Mahasiswa
+        </a>
+        <a
+          href="https://bit.ly/GFormPendaftaranSeminarNasional "
+          class="btn-outline btn-3"
+          >Pendaftaran Seminar Nasional untuk Umum</a
         >
-        <a href="#" class="btn-outline btn-3">Petunjuk Teknik Presentasi</a>
-        <a href="https://forms.gle/QFAYCsXKvgsPq45L7" class="btn-outline btn-4"
-          >Pendaftaran Seminar</a
-        >
+        <a
+          href="https://bit.ly/PendaftaranPengumpulanKaryaPoster 
+"
+          class="btn-outline btn-4"
+          >Pendaftaran & Pengumpulan Karya Poster
+        </a>
         <a href="https://forms.gle/SgaNSwaW2N13eFrj7 " class="btn-outline btn-5"
-          >Pendaftaran Call for Papers</a
-        >
-        <a href="#" class="btn-outline btn-6"
-          >Petunjuk Teknik Call for Papers</a
+          >Guidebook Poster Exhibition</a
         >
       </div>
     </div>
