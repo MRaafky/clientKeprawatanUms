@@ -316,22 +316,22 @@
         flex: 1;
         min-height: 30vh;
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         grid-template-rows: auto auto;
         gap: 16px;
         min-width: 0;
       }
-
+/* 
       .btn-1 {
         grid-column: span 1;
-      }
+      } */
 
       .btn-2 {
-        grid-column: span 3;
+        grid-column: span 2;
       }
 
       .btn-3 {
-        grid-column-start: 5;
+        grid-column-start: 3;
       }
 
       .btn-4 {
@@ -341,12 +341,7 @@
 
       .btn-5 {
         grid-row-start: 2;
-        grid-column-start: 2;
-      }
-
-      .btn-6 {
-        grid-column: 3 / span 3;
-        grid-row-start: 2;
+        grid-column-start: span 2;
       }
 
       .btn-outline {
